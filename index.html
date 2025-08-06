@@ -3,27 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام إدارة المختبرات البيطرية</title>
+    <title>نظام إدارة المختبرات البيطرية | Veterinary Lab Management System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
     <style>
         :root {
-            --primary-color: #2c786c;
-            --secondary-color: #ff9a3c;
-            --accent-color: #004445;
-            --light-color: #f8f5f1;
-            --dark-color: #333;
-            --success-color: #28a745;
-            --danger-color: #dc3545;
-            --warning-color: #fd7e14;
+            --primary-color: #3a7d7d;
+            --secondary-color: #6b9e9e;
+            --accent-color: #2d5d5d;
+            --light-color: #f5f9f9;
+            --dark-color: #3a3a3a;
+            --success-color: #4caf50;
+            --danger-color: #f44336;
+            --warning-color: #ff9800;
+            --text-color: #333;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
         }
 
         body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: #f5f5f5;
-            color: var(--dark-color);
-            transition: all 0.3s;
+            font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-color);
+            color: var(--text-color);
+            transition: var(--transition);
+            line-height: 1.6;
         }
 
         .welcome-screen {
@@ -35,12 +41,16 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            padding: 20px;
+            background-image: linear-gradient(135deg, #3a7d7d 0%, #2d5d5d 100%);
         }
 
         .welcome-logo {
-            font-size: 4rem;
+            font-size: 5rem;
             margin-bottom: 2rem;
             animation: pulse 2s infinite;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         @keyframes pulse {
@@ -49,13 +59,31 @@
             100% { transform: scale(1); }
         }
 
+        .welcome-screen h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .welcome-screen p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
         .login-container {
             background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            width: 400px;
-            max-width: 90%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2.5rem;
+            width: 420px;
+            max-width: 95%;
+            transition: var(--transition);
+        }
+
+        .login-container:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
 
         .dashboard {
@@ -69,25 +97,36 @@
             height: 100vh;
             position: fixed;
             width: 250px;
-            transition: all 0.3s;
+            transition: var(--transition);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
         }
 
         .sidebar-header {
             padding: 1.5rem;
             background-color: rgba(0, 0, 0, 0.1);
             text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h3 {
+            margin: 0;
+            font-weight: 600;
         }
 
         .sidebar-menu {
             padding: 0;
             list-style: none;
+            margin-top: 1rem;
         }
 
         .sidebar-menu li {
-            padding: 0.75rem 1.5rem;
+            padding: 0.85rem 1.5rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
         }
 
         .sidebar-menu li:hover {
@@ -96,64 +135,96 @@
         }
 
         .sidebar-menu li.active {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.15);
             border-right: 4px solid var(--secondary-color);
         }
 
         .sidebar-menu li i {
             margin-left: 10px;
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
         }
 
         .main-content {
             margin-right: 250px;
             padding: 2rem;
-            transition: all 0.3s;
+            transition: var(--transition);
         }
 
         .card {
             border: none;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
             margin-bottom: 2rem;
-            transition: all 0.3s;
+            transition: var(--transition);
+            overflow: hidden;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
         }
 
         .card-header {
             background-color: var(--primary-color);
             color: white;
-            border-radius: 10px 10px 0 0 !important;
+            border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
             padding: 1rem 1.5rem;
+            font-weight: 600;
+            border-bottom: none;
+        }
+
+        .card-header h5 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-header h5 i {
+            margin-left: 10px;
+        }
+
+        .card-body {
+            padding: 1.5rem;
         }
 
         .btn-primary {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
+            transition: var(--transition);
         }
 
         .btn-primary:hover {
             background-color: var(--accent-color);
             border-color: var(--accent-color);
+            transform: translateY(-2px);
         }
 
         .btn-secondary {
             background-color: var(--secondary-color);
             border-color: var(--secondary-color);
             color: white;
+            transition: var(--transition);
         }
 
         .btn-secondary:hover {
-            background-color: #e07c00;
-            border-color: #e07c00;
+            background-color: #5a8a8a;
+            border-color: #5a8a8a;
+            color: white;
+            transform: translateY(-2px);
         }
 
-        .form-control:focus {
+        .form-control, .form-select {
+            border-radius: var(--border-radius);
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #ddd;
+            transition: var(--transition);
+        }
+
+        .form-control:focus, .form-select:focus {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(44, 120, 108, 0.25);
+            box-shadow: 0 0 0 0.25rem rgba(58, 125, 125, 0.25);
         }
 
         .nav-tabs .nav-link.active {
@@ -164,11 +235,29 @@
 
         .nav-tabs .nav-link {
             color: var(--dark-color);
+            transition: var(--transition);
+        }
+
+        .table {
+            border-radius: var(--border-radius);
+            overflow: hidden;
         }
 
         .table th {
             background-color: var(--primary-color);
             color: white;
+            font-weight: 500;
+        }
+
+        .table td, .table th {
+            padding: 0.75rem;
+            vertical-align: middle;
+        }
+
+        .badge {
+            font-weight: 500;
+            padding: 0.4em 0.75em;
+            border-radius: 20px;
         }
 
         .badge-success {
@@ -192,6 +281,7 @@
             padding: 1rem;
             text-align: center;
             font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .copyright {
@@ -201,23 +291,24 @@
             width: calc(100% - 250px);
             background-color: var(--dark-color);
             color: white;
-            padding: 0.5rem;
+            padding: 0.75rem;
             text-align: center;
             font-size: 0.8rem;
+            z-index: 99;
         }
 
         .barcode-container {
             text-align: center;
             padding: 2rem;
             background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
             max-width: 500px;
             margin: 0 auto;
         }
 
         .barcode {
-            margin: 1rem 0;
+            margin: 1.5rem 0;
         }
 
         .language-switcher {
@@ -225,6 +316,18 @@
             top: 1rem;
             left: 1rem;
             z-index: 1000;
+        }
+
+        .language-switcher .btn {
+            border-radius: 20px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.8rem;
+        }
+
+        /* Animal icons */
+        .animal-icon {
+            font-size: 1.2rem;
+            margin-left: 5px;
         }
 
         /* RTL specific styles */
@@ -290,6 +393,7 @@
             .sidebar-menu li {
                 text-align: center;
                 padding: 0.75rem 0;
+                justify-content: center;
             }
 
             .sidebar-menu li i {
@@ -327,18 +431,105 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Translation styles */
+        .translated {
+            display: none;
+        }
+
+        [lang="ar"] .arabic,
+        [lang="en"] .english {
+            display: block;
+        }
+
+        [lang="ar"] .english,
+        [lang="en"] .arabic {
+            display: none;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+
+        /* Input group */
+        .input-group-text {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Tab content */
+        .tab-content {
+            padding: 1rem 0;
+        }
+
+        /* List group */
+        .list-group-item {
+            transition: var(--transition);
+        }
+
+        .list-group-item:hover {
+            background-color: var(--light-color);
+        }
+
+        /* Modal */
+        .modal-content {
+            border-radius: var(--border-radius);
+            border: none;
+            box-shadow: var(--box-shadow);
+        }
+
+        /* Print styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #barcodeScreen, #barcodeScreen * {
+                visibility: visible;
+            }
+            #barcodeScreen {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: white;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Welcome Screen -->
     <div id="welcomeScreen" class="welcome-screen fade-in">
         <div class="welcome-logo">
-            <i class="fas fa-paw"></i>
+            <i class="fas fa-flask"></i>
         </div>
-        <h1>نظام إدارة المختبرات البيطرية</h1>
-        <p class="mt-3">نظام متكامل لإدارة عينات وفحوصات المختبرات البيطرية</p>
-        <button id="startBtn" class="btn btn-light btn-lg mt-4">
-            بدء النظام <i class="fas fa-arrow-left ms-2"></i>
+        <h1>
+            <span class="arabic">نظام إدارة المختبرات البيطرية</span>
+            <span class="english translated">Veterinary Laboratory Management System</span>
+        </h1>
+        <p class="mt-3">
+            <span class="arabic">نظام متكامل لإدارة عينات وفحوصات المختبرات البيطرية للحيوانات الزراعية</span>
+            <span class="english translated">Integrated system for managing veterinary lab samples and tests for farm animals</span>
+        </p>
+        <button id="startBtn" class="btn btn-light btn-lg mt-4 px-4 py-2">
+            <span class="arabic">بدء النظام <i class="fas fa-arrow-left ms-2"></i></span>
+            <span class="english translated">Start System <i class="fas fa-arrow-right ms-2"></i></span>
         </button>
     </div>
 
@@ -347,20 +538,30 @@
         <div class="login-container fade-in">
             <div class="text-center mb-4">
                 <i class="fas fa-user-shield" style="font-size: 3rem; color: var(--primary-color);"></i>
-                <h3 class="mt-2">تسجيل الدخول</h3>
-                <p>الرجاء إدخال رقمك الوظيفي للدخول إلى النظام</p>
+                <h3 class="mt-2">
+                    <span class="arabic">تسجيل الدخول</span>
+                    <span class="english translated">Login</span>
+                </h3>
+                <p>
+                    <span class="arabic">الرجاء إدخال رقمك الوظيفي للوصول إلى النظام</span>
+                    <span class="english translated">Please enter your employee ID to access the system</span>
+                </p>
             </div>
             <form id="loginForm">
                 <div class="mb-3">
-                    <label for="employeeId" class="form-label">رقم الوظيفي</label>
-                    <input type="text" class="form-control" id="employeeId" placeholder="أدخل رقمك الوظيفي" required>
+                    <label for="employeeId" class="form-label">
+                        <span class="arabic">رقم الوظيفي</span>
+                        <span class="english translated">Employee ID</span>
+                    </label>
+                    <input type="text" class="form-control" id="employeeId" 
+                        placeholder="أدخل رقمك الوظيفي" 
+                        data-ar-placeholder="أدخل رقمك الوظيفي" 
+                        data-en-placeholder="Enter your employee ID" required>
                 </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">كلمة المرور</label>
-                    <input type="password" class="form-control" id="password" placeholder="أدخل كلمة المرور" required>
-                </div>
-                <button type="submit" class="btn btn-primary w-100">
-                    <i class="fas fa-sign-in-alt ms-2"></i> دخول
+                <button type="submit" class="btn btn-primary w-100 py-2">
+                    <i class="fas fa-sign-in-alt ms-2"></i> 
+                    <span class="arabic">دخول</span>
+                    <span class="english translated">Login</span>
                 </button>
             </form>
         </div>
@@ -371,33 +572,50 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="sidebar-header">
-                <h3><i class="fas fa-paw me-2"></i> المختبر البيطري</h3>
+                <h3>
+                    <i class="fas fa-flask me-2"></i> 
+                    <span class="arabic">المختبر البيطري</span>
+                    <span class="english translated">Vet Lab</span>
+                </h3>
             </div>
             <ul class="sidebar-menu">
                 <li class="active" data-screen="dataEntry">
                     <i class="fas fa-plus-circle"></i>
-                    <span>إدخال البيانات</span>
+                    <span class="arabic">إدخال البيانات</span>
+                    <span class="english translated">Data Entry</span>
                 </li>
                 <li data-screen="reports">
                     <i class="fas fa-chart-bar"></i>
-                    <span>التقارير</span>
+                    <span class="arabic">التقارير</span>
+                    <span class="english translated">Reports</span>
                 </li>
                 <li data-screen="settings">
                     <i class="fas fa-cog"></i>
-                    <span>الإعدادات</span>
+                    <span class="arabic">الإعدادات</span>
+                    <span class="english translated">Settings</span>
                 </li>
                 <li data-screen="barcode">
                     <i class="fas fa-barcode"></i>
-                    <span>توليد باركود</span>
+                    <span class="arabic">توليد باركود</span>
+                    <span class="english translated">Generate Barcode</span>
                 </li>
                 <li id="logoutBtn">
                     <i class="fas fa-sign-out-alt"></i>
-                    <span>تسجيل الخروج</span>
+                    <span class="arabic">تسجيل الخروج</span>
+                    <span class="english translated">Logout</span>
                 </li>
             </ul>
             <div class="user-info">
-                <div class="user-name">مرحباً، <span id="loggedInUserName">مسؤول النظام</span></div>
-                <div class="user-id">رقم الوظيفي: <span id="loggedInUserId">ADMIN-001</span></div>
+                <div class="user-name">
+                    <span class="arabic">مرحباً،</span>
+                    <span class="english translated">Welcome,</span>
+                    <span id="loggedInUserName">مسؤول النظام</span>
+                </div>
+                <div class="user-id">
+                    <span class="arabic">رقم الوظيفي:</span>
+                    <span class="english translated">Employee ID:</span>
+                    <span id="loggedInUserId">ADMIN-001</span>
+                </div>
             </div>
         </div>
 
@@ -407,102 +625,220 @@
             <div id="dataEntryScreen" class="screen-content">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0"><i class="fas fa-plus-circle me-2"></i> نظام إدارة المختبرات</h5>
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-plus-circle me-2"></i> 
+                            <span class="arabic">إدخال بيانات العينات</span>
+                            <span class="english translated">Sample Data Entry</span>
+                        </h5>
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-between mb-4">
                             <div id="currentDateTime" class="text-muted"></div>
-                            <div id="sampleNumber" class="fw-bold">رقم التحليل: DRML-000001</div>
+                            <div id="sampleNumber" class="fw-bold">
+                                <span class="arabic">رقم التحليل:</span>
+                                <span class="english translated">Sample ID:</span>
+                                DRML-000001
+                            </div>
                         </div>
                         
                         <form id="sampleForm">
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label for="location" class="form-label">الموقع</label>
+                                    <label for="location" class="form-label">
+                                        <span class="arabic">الموقع</span>
+                                        <span class="english translated">Location</span>
+                                    </label>
                                     <select class="form-select" id="location" required>
-                                        <option value="" selected disabled>اختر الموقع</option>
-                                        <option value="الرياض">الرياض</option>
-                                        <option value="جدة">جدة</option>
-                                        <option value="الدمام">الدمام</option>
+                                        <option value="" selected disabled>
+                                            <span class="arabic">اختر الموقع</span>
+                                            <span class="english translated">Select Location</span>
+                                        </option>
+                                        <option value="الرياض">الرياض / Riyadh</option>
+                                        <option value="جدة">جدة / Jeddah</option>
+                                        <option value="الدمام">الدمام / Dammam</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="animalType" class="form-label">نوع الحيوان</label>
+                                    <label for="animalType" class="form-label">
+                                        <span class="arabic">نوع الحيوان</span>
+                                        <span class="english translated">Animal Type</span>
+                                    </label>
                                     <select class="form-select" id="animalType" required>
-                                        <option value="" selected disabled>اختر نوع الحيوان</option>
-                                        <option value="خروف">خروف</option>
-                                        <option value="ماعز">ماعز</option>
-                                        <option value="بقر">بقر</option>
-                                        <option value="جمل">جمل</option>
+                                        <option value="" selected disabled>
+                                            <span class="arabic">اختر نوع الحيوان</span>
+                                            <span class="english translated">Select Animal Type</span>
+                                        </option>
+                                        <option value="خروف">
+                                            <i class="fas fa-sheep animal-icon"></i>
+                                            <span class="arabic">خروف</span>
+                                            <span class="english translated">Sheep</span>
+                                        </option>
+                                        <option value="ماعز">
+                                            <i class="fas fa-goat animal-icon"></i>
+                                            <span class="arabic">ماعز</span>
+                                            <span class="english translated">Goat</span>
+                                        </option>
+                                        <option value="بقر">
+                                            <i class="fas fa-cow animal-icon"></i>
+                                            <span class="arabic">بقر</span>
+                                            <span class="english translated">Cow</span>
+                                        </option>
+                                        <option value="جمل">
+                                            <i class="fas fa-horse animal-icon"></i>
+                                            <span class="arabic">جمل</span>
+                                            <span class="english translated">Camel</span>
+                                        </option>
+                                      animal-icon"></i>
+                                            <span class="arabic">خروف</span>
+                                            <span class="english translated">Surface</span>
+                                        </option>
                                     </select>
                                 </div>
                             </div>
                             
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label class="form-label">جنس الحيوان</label>
+                                    <label class="form-label">
+                                        <span class="arabic">جنس الحيوان</span>
+                                        <span class="english translated">Animal Gender</span>
+                                    </label>
                                     <div class="d-flex">
                                         <div class="form-check me-3">
                                             <input class="form-check-input" type="radio" name="animalGender" id="male" value="ذكر" checked>
-                                            <label class="form-check-label" for="male">ذكر</label>
+                                            <label class="form-check-label" for="male">
+                                                <span class="arabic">ذكر</span>
+                                                <span class="english translated">Male</span>
+                                            </label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="animalGender" id="female" value="انثى">
-                                            <label class="form-check-label" for="female">انثى</label>
+                                            <label class="form-check-label" for="female">
+                                                <span class="arabic">انثى</span>
+                                                <span class="english translated">Female</span>
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="sampleType" class="form-label">نوع العينة</label>
+                                    <label for="sampleType" class="form-label">
+                                        <span class="arabic">نوع العينة</span>
+                                        <span class="english translated">Sample Type</span>
+                                    </label>
                                     <select class="form-select" id="sampleType" required>
-                                        <option value="" selected disabled>اختر نوع العينة</option>
-                                        <option value="مسحة سطح">مسحة سطح</option>
-                                        <option value="مسحة">مسحة</option>
-                                        <option value="دم">دم</option>
-                                        <option value="شحم">شحم</option>
-                                        <option value="لحم ذبيحة">لحم ذبيحة</option>
-                                        <option value="أخرى">أخرى</option>
+                                        <option value="" selected disabled>
+                                            <span class="arabic">اختر نوع العينة</span>
+                                            <span class="english translated">Select Sample Type</span>
+                                        </option>
+                                        <option value="مسحة سطح">
+                                            <span class="arabic">مسحة سطح</span>
+                                            <span class="english translated">Surface Swab</span>
+                                        </option>
+                                        <option value="مسحة">
+                                            <span class="arabic">مسحة</span>
+                                            <span class="english translated">Swab</span>
+                                        </option>
+                                        <option value="دم">
+                                            <span class="arabic">دم</span>
+                                            <span class="english translated">Blood</span>
+                                        </option>
+                                        <option value="شحم">
+                                            <span class="arabic">شحم</span>
+                                            <span class="english translated">Fat</span>
+                                        </option>
+                                        <option value="لحم ذبيحة">
+                                            <span class="arabic">لحم ذبيحة</span>
+                                            <span class="english translated">Meat</span>
+                                        </option>
+                                        <option value="أخرى">
+                                            <span class="arabic">أخرى</span>
+                                            <span class="english translated">Other</span>
+                                        </option>
                                     </select>
                                 </div>
                             </div>
                             
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label for="testType" class="form-label">نوع الاختبار</label>
+                                    <label for="testType" class="form-label">
+                                        <span class="arabic">نوع الاختبار</span>
+                                        <span class="english translated">Test Type</span>
+                                    </label>
                                     <select class="form-select" id="testType" required>
-                                        <option value="" selected disabled>اختر نوع الاختبار</option>
-                                        <option value="اختبار بروسيلا RBT">اختبار بروسيلا RBT</option>
-                                        <option value="اختبار يرقان">اختبار يرقان</option>
-                                        <option value="تزريع">تزريع</option>
-                                        <option value="رائحة">رائحة</option>
+                                        <option value="" selected disabled>
+                                            <span class="arabic">اختر نوع الاختبار</span>
+                                            <span class="english translated">Select Test Type</span>
+                                        </option>
+                                        <option value="اختبار بروسيلا RBT">
+                                            <span class="arabic">اختبار بروسيلا RBT</span>
+                                            <span class="english translated">Brucella RBT Test</span>
+                                        </option>
+                                        <option value="اختبار يرقان">
+                                            <span class="arabic">اختبار يرقان</span>
+                                            <span class="english translated">Jaundice Test</span>
+                                        </option>
+                                        <option value="تزريع">
+                                            <span class="arabic">تزريع</span>
+                                            <span class="english translated">Culture</span>
+                                        </option>
+                                        <option value="رائحة">
+                                            <span class="arabic">رائحة</span>
+                                            <span class="english translated">Smell Test</span>
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="testResult" class="form-label">نتيجة الاختبار</label>
+                                    <label for="testResult" class="form-label">
+                                        <span class="arabic">نتيجة الاختبار</span>
+                                        <span class="english translated">Test Result</span>
+                                    </label>
                                     <select class="form-select" id="testResult" required>
-                                        <option value="" selected disabled>اختر النتيجة</option>
-                                        <option value="موجبة">موجبة</option>
-                                        <option value="سلبية">سلبية</option>
-                                        <option value="مشكوك يجب اجراء اختبار تأكيدي">مشكوك يجب اجراء اختبار تأكيدي</option>
+                                        <option value="" selected disabled>
+                                            <span class="arabic">اختر النتيجة</span>
+                                            <span class="english translated">Select Result</span>
+                                        </option>
+                                        <option value="موجبة">
+                                            <span class="arabic">موجبة</span>
+                                            <span class="english translated">Positive</span>
+                                        </option>
+                                        <option value="سلبية">
+                                            <span class="arabic">سلبية</span>
+                                            <span class="english translated">Negative</span>
+                                        </option>
+                                        <option value="مشكوك يجب اجراء اختبار تأكيدي">
+                                            <span class="arabic">مشكوك يجب اجراء اختبار تأكيدي</span>
+                                            <span class="english translated">Suspicious (needs confirmation)</span>
+                                        </option>
                                     </select>
                                 </div>
                             </div>
                             
                             <div class="mb-3">
-                                <label for="notes" class="form-label">ملاحظات (اختياري)</label>
-                                <textarea class="form-control" id="notes" rows="2"></textarea>
+                                <label for="notes" class="form-label">
+                                    <span class="arabic">ملاحظات (اختياري)</span>
+                                    <span class="english translated">Notes (Optional)</span>
+                                </label>
+                                <textarea class="form-control" id="notes" rows="2" 
+                                    placeholder="أدخل أي ملاحظات إضافية"
+                                    data-ar-placeholder="أدخل أي ملاحظات إضافية"
+                                    data-en-placeholder="Enter any additional notes"></textarea>
                             </div>
                             
                             <div class="d-flex justify-content-between mt-4">
                                 <button type="button" class="btn btn-secondary" id="generateBarcodeBtn">
-                                    <i class="fas fa-barcode me-2"></i> توليد باركود
+                                    <i class="fas fa-barcode me-2"></i> 
+                                    <span class="arabic">توليد باركود</span>
+                                    <span class="english translated">Generate Barcode</span>
                                 </button>
                                 <div>
                                     <button type="reset" class="btn btn-outline-secondary me-2">
-                                        <i class="fas fa-times me-2"></i> إلغاء
+                                        <i class="fas fa-times me-2"></i> 
+                                        <span class="arabic">إلغاء</span>
+                                        <span class="english translated">Cancel</span>
                                     </button>
                                     <button type="submit" class="btn btn-primary">
-                                        <i class="fas fa-save me-2"></i> حفظ البيانات
+                                        <i class="fas fa-save me-2"></i> 
+                                        <span class="arabic">حفظ البيانات</span>
+                                        <span class="english translated">Save Data</span>
                                     </button>
                                 </div>
                             </div>
@@ -515,31 +851,61 @@
             <div id="reportsScreen" class="screen-content d-none">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0"><i class="fas fa-chart-bar me-2"></i> تقارير المختبر</h5>
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-chart-bar me-2"></i> 
+                            <span class="arabic">تقارير المختبر</span>
+                            <span class="english translated">Lab Reports</span>
+                        </h5>
                     </div>
                     <div class="card-body">
                         <div class="row mb-4">
                             <div class="col-md-3">
-                                <label for="reportStartDate" class="form-label">من تاريخ</label>
+                                <label for="reportStartDate" class="form-label">
+                                    <span class="arabic">من تاريخ</span>
+                                    <span class="english translated">From Date</span>
+                                </label>
                                 <input type="date" class="form-control" id="reportStartDate">
                             </div>
                             <div class="col-md-3">
-                                <label for="reportEndDate" class="form-label">إلى تاريخ</label>
+                                <label for="reportEndDate" class="form-label">
+                                    <span class="arabic">إلى تاريخ</span>
+                                    <span class="english translated">To Date</span>
+                                </label>
                                 <input type="date" class="form-control" id="reportEndDate">
                             </div>
                             <div class="col-md-3">
-                                <label for="reportTestType" class="form-label">نوع الاختبار</label>
+                                <label for="reportTestType" class="form-label">
+                                    <span class="arabic">نوع الاختبار</span>
+                                    <span class="english translated">Test Type</span>
+                                </label>
                                 <select class="form-select" id="reportTestType">
-                                    <option value="">الكل</option>
-                                    <option value="اختبار بروسيلا RBT">اختبار بروسيلا RBT</option>
-                                    <option value="اختبار يرقان">اختبار يرقان</option>
-                                    <option value="تزريع">تزريع</option>
-                                    <option value="رائحة">رائحة</option>
+                                    <option value="">
+                                        <span class="arabic">الكل</span>
+                                        <span class="english translated">All</span>
+                                    </option>
+                                    <option value="اختبار بروسيلا RBT">
+                                        <span class="arabic">اختبار بروسيلا RBT</span>
+                                        <span class="english translated">Brucella RBT Test</span>
+                                    </option>
+                                    <option value="اختبار يرقان">
+                                        <span class="arabic">اختبار يرقان</span>
+                                        <span class="english translated">Jaundice Test</span>
+                                    </option>
+                                    <option value="تزريع">
+                                        <span class="arabic">تزريع</span>
+                                        <span class="english translated">Culture</span>
+                                    </option>
+                                    <option value="رائحة">
+                                        <span class="arabic">رائحة</span>
+                                        <span class="english translated">Smell Test</span>
+                                    </option>
                                 </select>
                             </div>
                             <div class="col-md-3 d-flex align-items-end">
                                 <button class="btn btn-primary w-100" id="filterReportsBtn">
-                                    <i class="fas fa-filter me-2"></i> تصفية
+                                    <i class="fas fa-filter me-2"></i> 
+                                    <span class="arabic">تصفية</span>
+                                    <span class="english translated">Filter</span>
                                 </button>
                             </div>
                         </div>
@@ -548,59 +914,55 @@
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>تاريخ العينة</th>
-                                        <th>ساعة العينة</th>
-                                        <th>الموقع</th>
-                                        <th>نوع الحيوان</th>
-                                        <th>جنس الحيوان</th>
-                                        <th>نوع العينة</th>
-                                        <th>نوع الاختبار</th>
-                                        <th>نتيجة الاختبار</th>
-                                        <th>مدخل البيانات</th>
+                                        <th>
+                                            <span class="arabic">تاريخ العينة</span>
+                                            <span class="english translated">Sample Date</span>
+                                        </th>
+                                        <th>
+                                            <span class="arabic">ساعة العينة</span>
+                                            <span class="english translated">Sample Time</span>
+                                        </th>
+                                        <th>
+                                            <span class="arabic">الموقع</span>
+                                            <span class="english translated">Location</span>
+                                        </th>
+                                        <th>
+                                            <span class="arabic">نوع الحيوان</span>
+                                            <span class="english translated">Animal Type</span>
+                                        </th>
+                                        <th>
+                                            <span class="arabic">جنس الحيوان</span>
+                                            <span class="english translated">Gender</span>
+                                        </th>
+                                        <th>
+                                            <span class="arabic">نوع العينة</span>
+                                            <span class="english translated">Sample Type</span>
+                                        </th>
+                                        <th>
+                                            <span class="arabic">نوع الاختبار</span>
+                                            <span class="english translated">Test Type</span>
+                                        </th>
+                                        <th>
+                                            <span class="arabic">نتيجة الاختبار</span>
+                                            <span class="english translated">Result</span>
+                                        </th>
+                                        <th>
+                                            <span class="arabic">مدخل البيانات</span>
+                                            <span class="english translated">Entered By</span>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="reportTableBody">
-                                    <!-- Sample data -->
-                                    <tr>
-                                        <td>2023-06-15</td>
-                                        <td>10:30</td>
-                                        <td>الرياض</td>
-                                        <td>خروف</td>
-                                        <td>ذكر</td>
-                                        <td>دم</td>
-                                        <td>اختبار بروسيلا RBT</td>
-                                        <td><span class="badge badge-success">سلبية</span></td>
-                                        <td>مسؤول النظام</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2023-06-16</td>
-                                        <td>14:15</td>
-                                        <td>جدة</td>
-                                        <td>بقر</td>
-                                        <td>انثى</td>
-                                        <td>مسحة</td>
-                                        <td>اختبار يرقان</td>
-                                        <td><span class="badge badge-danger">موجبة</span></td>
-                                        <td>مسؤول النظام</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2023-06-17</td>
-                                        <td>09:45</td>
-                                        <td>الدمام</td>
-                                        <td>ماعز</td>
-                                        <td>انثى</td>
-                                        <td>شحم</td>
-                                        <td>رائحة</td>
-                                        <td><span class="badge badge-warning">مشكوك</span></td>
-                                        <td>مسؤول النظام</td>
-                                    </tr>
+                                    <!-- Sample data will be inserted here by JavaScript -->
                                 </tbody>
                             </table>
                         </div>
                         
                         <div class="d-flex justify-content-end mt-3">
                             <button class="btn btn-secondary" id="exportPdfBtn">
-                                <i class="fas fa-file-pdf me-2"></i> تصدير PDF
+                                <i class="fas fa-file-pdf me-2"></i> 
+                                <span class="arabic">تصدير PDF</span>
+                                <span class="english translated">Export PDF</span>
                             </button>
                         </div>
                     </div>
@@ -611,18 +973,31 @@
             <div id="settingsScreen" class="screen-content d-none">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0"><i class="fas fa-cog me-2"></i> إعدادات النظام</h5>
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-cog me-2"></i> 
+                            <span class="arabic">إعدادات النظام</span>
+                            <span class="english translated">System Settings</span>
+                        </h5>
                     </div>
                     <div class="card-body">
                         <ul class="nav nav-tabs mb-4" id="settingsTabs" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab">إدارة المستخدمين</button>
+                                <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab">
+                                    <span class="arabic">إدارة المستخدمين</span>
+                                    <span class="english translated">User Management</span>
+                                </button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="samples-tab" data-bs-toggle="tab" data-bs-target="#samples" type="button" role="tab">إعدادات العينات</button>
+                                <button class="nav-link" id="samples-tab" data-bs-toggle="tab" data-bs-target="#samples" type="button" role="tab">
+                                    <span class="arabic">إعدادات العينات</span>
+                                    <span class="english translated">Sample Settings</span>
+                                </button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="system-tab" data-bs-toggle="tab" data-bs-target="#system" type="button" role="tab">إعدادات النظام</button>
+                                <button class="nav-link" id="system-tab" data-bs-toggle="tab" data-bs-target="#system" type="button" role="tab">
+                                    <span class="arabic">إعدادات النظام</span>
+                                    <span class="english translated">System Settings</span>
+                                </button>
                             </li>
                         </ul>
                         
@@ -630,9 +1005,14 @@
                             <!-- Users Management Tab -->
                             <div class="tab-pane fade show active" id="users" role="tabpanel">
                                 <div class="d-flex justify-content-between mb-3">
-                                    <h5>إدارة المستخدمين</h5>
+                                    <h5>
+                                        <span class="arabic">إدارة المستخدمين</span>
+                                        <span class="english translated">User Management</span>
+                                    </h5>
                                     <button class="btn btn-primary btn-sm" id="addUserBtn">
-                                        <i class="fas fa-plus me-2"></i> إضافة مستخدم
+                                        <i class="fas fa-plus me-2"></i> 
+                                        <span class="arabic">إضافة مستخدم</span>
+                                        <span class="english translated">Add User</span>
                                     </button>
                                 </div>
                                 
@@ -640,46 +1020,51 @@
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
-                                                <th>رقم الوظيفي</th>
-                                                <th>اسم المستخدم</th>
-                                                <th>الصلاحية</th>
-                                                <th>الموقع</th>
-                                                <th>الحالة</th>
-                                                <th>الإجراءات</th>
+                                                <th>
+                                                    <span class="arabic">رقم الوظيفي</span>
+                                                    <span class="english translated">Employee ID</span>
+                                                </th>
+                                                <th>
+                                                    <span class="arabic">اسم المستخدم</span>
+                                                    <span class="english translated">Username</span>
+                                                </th>
+                                                <th>
+                                                    <span class="arabic">الصلاحية</span>
+                                                    <span class="english translated">Role</span>
+                                                </th>
+                                                <th>
+                                                    <span class="arabic">الموقع</span>
+                                                    <span class="english translated">Location</span>
+                                                </th>
+                                                <th>
+                                                    <span class="arabic">الحالة</span>
+                                                    <span class="english translated">Status</span>
+                                                </th>
+                                                <th>
+                                                    <span class="arabic">الإجراءات</span>
+                                                    <span class="english translated">Actions</span>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>ADMIN-001</td>
-                                                <td>مسؤول النظام</td>
-                                                <td><span class="badge bg-danger">مدير</span></td>
-                                                <td>الجميع</td>
-                                                <td><span class="badge bg-success">نشط</span></td>
+                                                <td>70062</td>
+                                                <td>مصعب محمد</td>
+                                                <td><span class="badge bg-danger">
+                                                    <span class="arabic">مدير</span>
+                                                    <span class="english translated">Admin</span>
+                                                </span></td>
                                                 <td>
-                                                    <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
-                                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                    <span class="arabic">الجميع</span>
+                                                    <span class="english translated">All</span>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <td>TECH-101</td>
-                                                <td>فني مختبر</td>
-                                                <td><span class="badge bg-primary">فني</span></td>
-                                                <td>الرياض</td>
-                                                <td><span class="badge bg-success">نشط</span></td>
+                                                <td><span class="badge bg-success">
+                                                    <span class="arabic">نشط</span>
+                                                    <span class="english translated">Active</span>
+                                                </span></td>
                                                 <td>
-                                                    <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
-                                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>TECH-102</td>
-                                                <td>فني مختبر 2</td>
-                                                <td><span class="badge bg-primary">فني</span></td>
-                                                <td>جدة</td>
-                                                <td><span class="badge bg-secondary">غير نشط</span></td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
-                                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                    <button class="btn btn-sm btn-outline-primary me-1 edit-user"><i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-sm btn-outline-danger delete-user" disabled><i class="fas fa-trash"></i></button>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -693,25 +1078,33 @@
                                     <div class="col-md-4">
                                         <div class="card mb-4">
                                             <div class="card-header bg-primary text-white">
-                                                <h6 class="mb-0">المواقع</h6>
+                                                <h6 class="mb-0">
+                                                    <span class="arabic">المواقع</span>
+                                                    <span class="english translated">Locations</span>
+                                                </h6>
                                             </div>
                                             <div class="card-body">
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="newLocation" placeholder="إضافة موقع جديد">
-                                                    <button class="btn btn-primary" type="button" id="addLocationBtn"><i class="fas fa-plus"></i></button>
+                                                    <input type="text" class="form-control" id="newLocation" 
+                                                        placeholder="إضافة موقع جديد"
+                                                        data-ar-placeholder="إضافة موقع جديد"
+                                                        data-en-placeholder="Add new location">
+                                                    <button class="btn btn-primary" type="button" id="addLocationBtn">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
                                                 </div>
                                                 <ul class="list-group" id="locationsList">
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        الرياض
-                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                        الرياض / Riyadh
+                                                        <button class="btn btn-sm btn-outline-danger delete-location"><i class="fas fa-trash"></i></button>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        جدة
-                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                        جدة / Jeddah
+                                                        <button class="btn btn-sm btn-outline-danger delete-location"><i class="fas fa-trash"></i></button>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        الدمام
-                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                        الدمام / Dammam
+                                                        <button class="btn btn-sm btn-outline-danger delete-location"><i class="fas fa-trash"></i></button>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -721,37 +1114,51 @@
                                     <div class="col-md-4">
                                         <div class="card mb-4">
                                             <div class="card-header bg-primary text-white">
-                                                <h6 class="mb-0">أنواع العينات</h6>
+                                                <h6 class="mb-0">
+                                                    <span class="arabic">أنواع العينات</span>
+                                                    <span class="english translated">Sample Types</span>
+                                                </h6>
                                             </div>
                                             <div class="card-body">
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="newSampleType" placeholder="إضافة نوع عينة جديد">
-                                                    <button class="btn btn-primary" type="button" id="addSampleTypeBtn"><i class="fas fa-plus"></i></button>
+                                                    <input type="text" class="form-control" id="newSampleType" 
+                                                        placeholder="إضافة نوع عينة جديد"
+                                                        data-ar-placeholder="إضافة نوع عينة جديد"
+                                                        data-en-placeholder="Add new sample type">
+                                                    <button class="btn btn-primary" type="button" id="addSampleTypeBtn">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
                                                 </div>
                                                 <ul class="list-group" id="sampleTypesList">
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        مسحة سطح
-                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                        <span class="arabic">مسحة سطح</span>
+                                                        <span class="english translated">Surface Swab</span>
+                                                        <button class="btn btn-sm btn-outline-danger delete-sample-type"><i class="fas fa-trash"></i></button>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        مسحة
-                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                        <span class="arabic">مسحة</span>
+                                                        <span class="english translated">Swab</span>
+                                                        <button class="btn btn-sm btn-outline-danger delete-sample-type"><i class="fas fa-trash"></i></button>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        دم
-                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                        <span class="arabic">دم</span>
+                                                        <span class="english translated">Blood</span>
+                                                        <button class="btn btn-sm btn-outline-danger delete-sample-type"><i class="fas fa-trash"></i></button>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        شحم
-                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                        <span class="arabic">شحم</span>
+                                                        <span class="english translated">Fat</span>
+                                                        <button class="btn btn-sm btn-outline-danger delete-sample-type"><i class="fas fa-trash"></i></button>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        لحم ذبيحة
-                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                        <span class="arabic">لحم ذبيحة</span>
+                                                        <span class="english translated">Meat</span>
+                                                        <button class="btn btn-sm btn-outline-danger delete-sample-type"><i class="fas fa-trash"></i></button>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        أخرى
-                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                        <span class="arabic">أخرى</span>
+                                                        <span class="english translated">Other</span>
+                                                        <button class="btn btn-sm btn-outline-danger delete-sample-type"><i class="fas fa-trash"></i></button>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -761,29 +1168,41 @@
                                     <div class="col-md-4">
                                         <div class="card mb-4">
                                             <div class="card-header bg-primary text-white">
-                                                <h6 class="mb-0">أنواع الاختبارات</h6>
+                                                <h6 class="mb-0">
+                                                    <span class="arabic">أنواع الاختبارات</span>
+                                                    <span class="english translated">Test Types</span>
+                                                </h6>
                                             </div>
                                             <div class="card-body">
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="newTestType" placeholder="إضافة نوع اختبار جديد">
-                                                    <button class="btn btn-primary" type="button" id="addTestTypeBtn"><i class="fas fa-plus"></i></button>
+                                                    <input type="text" class="form-control" id="newTestType" 
+                                                        placeholder="إضافة نوع اختبار جديد"
+                                                        data-ar-placeholder="إضافة نوع اختبار جديد"
+                                                        data-en-placeholder="Add new test type">
+                                                    <button class="btn btn-primary" type="button" id="addTestTypeBtn">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
                                                 </div>
                                                 <ul class="list-group" id="testTypesList">
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        اختبار بروسيلا RBT
-                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                        <span class="arabic">اختبار بروسيلا RBT</span>
+                                                        <span class="english translated">Brucella RBT Test</span>
+                                                        <button class="btn btn-sm btn-outline-danger delete-test-type"><i class="fas fa-trash"></i></button>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        اختبار يرقان
-                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                        <span class="arabic">اختبار يرقان</span>
+                                                        <span class="english translated">Jaundice Test</span>
+                                                        <button class="btn btn-sm btn-outline-danger delete-test-type"><i class="fas fa-trash"></i></button>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        تزريع
-                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                        <span class="arabic">تزريع</span>
+                                                        <span class="english translated">Culture</span>
+                                                        <button class="btn btn-sm btn-outline-danger delete-test-type"><i class="fas fa-trash"></i></button>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        رائحة
-                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                        <span class="arabic">رائحة</span>
+                                                        <span class="english translated">Smell Test</span>
+                                                        <button class="btn btn-sm btn-outline-danger delete-test-type"><i class="fas fa-trash"></i></button>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -795,25 +1214,36 @@
                                     <div class="col-md-6">
                                         <div class="card">
                                             <div class="card-header bg-primary text-white">
-                                                <h6 class="mb-0">نتائج الاختبارات</h6>
+                                                <h6 class="mb-0">
+                                                    <span class="arabic">نتائج الاختبارات</span>
+                                                    <span class="english translated">Test Results</span>
+                                                </h6>
                                             </div>
                                             <div class="card-body">
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="newTestResult" placeholder="إضافة نتيجة اختبار جديدة">
-                                                    <button class="btn btn-primary" type="button" id="addTestResultBtn"><i class="fas fa-plus"></i></button>
+                                                    <input type="text" class="form-control" id="newTestResult" 
+                                                        placeholder="إضافة نتيجة اختبار جديدة"
+                                                        data-ar-placeholder="إضافة نتيجة اختبار جديدة"
+                                                        data-en-placeholder="Add new test result">
+                                                    <button class="btn btn-primary" type="button" id="addTestResultBtn">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
                                                 </div>
                                                 <ul class="list-group" id="testResultsList">
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        موجبة
-                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                        <span class="arabic">موجبة</span>
+                                                        <span class="english translated">Positive</span>
+                                                        <button class="btn btn-sm btn-outline-danger delete-test-result"><i class="fas fa-trash"></i></button>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        سلبية
-                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                        <span class="arabic">سلبية</span>
+                                                        <span class="english translated">Negative</span>
+                                                        <button class="btn btn-sm btn-outline-danger delete-test-result"><i class="fas fa-trash"></i></button>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        مشكوك يجب اجراء اختبار تأكيدي
-                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                        <span class="arabic">مشكوك يجب اجراء اختبار تأكيدي</span>
+                                                        <span class="english translated">Suspicious (needs confirmation)</span>
+                                                        <button class="btn btn-sm btn-outline-danger delete-test-result"><i class="fas fa-trash"></i></button>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -828,25 +1258,40 @@
                                     <div class="col-md-6">
                                         <div class="card mb-4">
                                             <div class="card-header bg-primary text-white">
-                                                <h6 class="mb-0">إعدادات المظهر</h6>
+                                                <h6 class="mb-0">
+                                                    <span class="arabic">إعدادات المظهر</span>
+                                                    <span class="english translated">Appearance Settings</span>
+                                                </h6>
                                             </div>
                                             <div class="card-body">
                                                 <div class="mb-3">
-                                                    <label class="form-label">لون النظام الأساسي</label>
+                                                    <label class="form-label">
+                                                        <span class="arabic">لون النظام الأساسي</span>
+                                                        <span class="english translated">Primary Color</span>
+                                                    </label>
                                                     <div class="d-flex">
-                                                        <div class="color-option me-2" data-color="#2c786c" style="background-color: #2c786c; width: 30px; height: 30px; border-radius: 50%; cursor: pointer;"></div>
-                                                        <div class="color-option me-2" data-color="#3a86ff" style="background-color: #3a86ff; width: 30px; height: 30px; border-radius: 50%; cursor: pointer;"></div>
-                                                        <div class="color-option me-2" data-color="#8338ec" style="background-color: #8338ec; width: 30px; height: 30px; border-radius: 50%; cursor: pointer;"></div>
-                                                        <div class="color-option me-2" data-color="#ff006e" style="background-color: #ff006e; width: 30px; height: 30px; border-radius: 50%; cursor: pointer;"></div>
-                                                        <div class="color-option" data-color="#fb5607" style="background-color: #fb5607; width: 30px; height: 30px; border-radius: 50%; cursor: pointer;"></div>
+                                                        <div class="color-option me-2" data-color="#3a7d7d" style="background-color: #3a7d7d; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid #fff;"></div>
+                                                        <div class="color-option me-2" data-color="#4a8c8c" style="background-color: #4a8c8c; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid #fff;"></div>
+                                                        <div class="color-option me-2" data-color="#5a9c9c" style="background-color: #5a9c9c; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid #fff;"></div>
+                                                        <div class="color-option me-2" data-color="#6aacac" style="background-color: #6aacac; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid #fff;"></div>
+                                                        <div class="color-option" data-color="#7abcbc" style="background-color: #7abcbc; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid #fff;"></div>
                                                     </div>
                                                 </div>
                                                 
                                                 <div class="mb-3">
-                                                    <label class="form-label">نمط القائمة الجانبية</label>
+                                                    <label class="form-label">
+                                                        <span class="arabic">نمط القائمة الجانبية</span>
+                                                        <span class="english translated">Sidebar Style</span>
+                                                    </label>
                                                     <select class="form-select" id="sidebarStyle">
-                                                        <option value="expanded">موسعة</option>
-                                                        <option value="compact">مضغوطة</option>
+                                                        <option value="expanded">
+                                                            <span class="arabic">موسعة</span>
+                                                            <span class="english translated">Expanded</span>
+                                                        </option>
+                                                        <option value="compact">
+                                                            <span class="arabic">مضغوطة</span>
+                                                            <span class="english translated">Compact</span>
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -856,20 +1301,35 @@
                                     <div class="col-md-6">
                                         <div class="card mb-4">
                                             <div class="card-header bg-primary text-white">
-                                                <h6 class="mb-0">إعدادات اللغة</h6>
+                                                <h6 class="mb-0">
+                                                    <span class="arabic">إعدادات اللغة</span>
+                                                    <span class="english translated">Language Settings</span>
+                                                </h6>
                                             </div>
                                             <div class="card-body">
                                                 <div class="mb-3">
-                                                    <label class="form-label">لغة النظام</label>
+                                                    <label class="form-label">
+                                                        <span class="arabic">لغة النظام</span>
+                                                        <span class="english translated">System Language</span>
+                                                    </label>
                                                     <select class="form-select" id="systemLanguage">
-                                                        <option value="ar">العربية</option>
-                                                        <option value="en">الإنجليزية</option>
+                                                        <option value="ar">
+                                                            <span class="arabic">العربية</span>
+                                                            <span class="english translated">Arabic</span>
+                                                        </option>
+                                                        <option value="en">
+                                                            <span class="arabic">الإنجليزية</span>
+                                                            <span class="english translated">English</span>
+                                                        </option>
                                                     </select>
                                                 </div>
                                                 
                                                 <div class="form-check form-switch mb-3">
                                                     <input class="form-check-input" type="checkbox" id="rtlSwitch" checked>
-                                                    <label class="form-check-label" for="rtlSwitch">اتجاه النص من اليمين لليسار (RTL)</label>
+                                                    <label class="form-check-label" for="rtlSwitch">
+                                                        <span class="arabic">اتجاه النص من اليمين لليسار (RTL)</span>
+                                                        <span class="english translated">Right-to-left text direction (RTL)</span>
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -878,26 +1338,40 @@
                                 
                                 <div class="card">
                                     <div class="card-header bg-primary text-white">
-                                        <h6 class="mb-0">إعدادات النظام المتقدمة</h6>
+                                        <h6 class="mb-0">
+                                            <span class="arabic">إعدادات النظام المتقدمة</span>
+                                            <span class="english translated">Advanced System Settings</span>
+                                        </h6>
                                     </div>
                                     <div class="card-body">
                                         <div class="form-check form-switch mb-3">
                                             <input class="form-check-input" type="checkbox" id="autoBackupSwitch" checked>
-                                            <label class="form-check-label" for="autoBackupSwitch">النسخ الاحتياطي التلقائي</label>
+                                            <label class="form-check-label" for="autoBackupSwitch">
+                                                <span class="arabic">النسخ الاحتياطي التلقائي</span>
+                                                <span class="english translated">Auto Backup</span>
+                                            </label>
                                         </div>
                                         
                                         <div class="form-check form-switch mb-3">
                                             <input class="form-check-input" type="checkbox" id="notificationsSwitch" checked>
-                                            <label class="form-check-label" for="notificationsSwitch">إشعارات النظام</label>
+                                            <label class="form-check-label" for="notificationsSwitch">
+                                                <span class="arabic">إشعارات النظام</span>
+                                                <span class="english translated">System Notifications</span>
+                                            </label>
                                         </div>
                                         
                                         <div class="mb-3">
-                                            <label class="form-label">فترة انتهاء الجلسة (دقائق)</label>
+                                            <label class="form-label">
+                                                <span class="arabic">فترة انتهاء الجلسة (دقائق)</span>
+                                                <span class="english translated">Session Timeout (minutes)</span>
+                                            </label>
                                             <input type="number" class="form-control" id="sessionTimeout" value="30" min="5" max="240">
                                         </div>
                                         
                                         <button class="btn btn-primary" id="saveSystemSettingsBtn">
-                                            <i class="fas fa-save me-2"></i> حفظ الإعدادات
+                                            <i class="fas fa-save me-2"></i> 
+                                            <span class="arabic">حفظ الإعدادات</span>
+                                            <span class="english translated">Save Settings</span>
                                         </button>
                                     </div>
                                 </div>
@@ -911,18 +1385,30 @@
             <div id="barcodeScreen" class="screen-content d-none">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0"><i class="fas fa-barcode me-2"></i> توليد باركود للعينة</h5>
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-barcode me-2"></i> 
+                            <span class="arabic">توليد باركود للعينة</span>
+                            <span class="english translated">Generate Sample Barcode</span>
+                        </h5>
                     </div>
                     <div class="card-body">
                         <div class="barcode-container">
-                            <h4 id="barcodeTitle">باركود العينة: DRML-000001</h4>
+                            <h4 id="barcodeTitle">
+                                <span class="arabic">باركود العينة:</span>
+                                <span class="english translated">Sample Barcode:</span>
+                                DRML-000001
+                            </h4>
                             <svg id="barcode" class="barcode"></svg>
                             <div class="mt-3">
                                 <button class="btn btn-primary me-2" id="printBarcodeBtn">
-                                    <i class="fas fa-print me-2"></i> طباعة
+                                    <i class="fas fa-print me-2"></i> 
+                                    <span class="arabic">طباعة</span>
+                                    <span class="english translated">Print</span>
                                 </button>
                                 <button class="btn btn-secondary" id="downloadBarcodeBtn">
-                                    <i class="fas fa-download me-2"></i> تحميل
+                                    <i class="fas fa-download me-2"></i> 
+                                    <span class="arabic">تحميل</span>
+                                    <span class="english translated">Download</span>
                                 </button>
                             </div>
                         </div>
@@ -932,7 +1418,8 @@
         </div>
 
         <div class="copyright">
-            جميع حقوق النشر محفوظة - البرنامج للاستخدام الرسمي فقط من قبل الشخص المصرح له فقط
+            <span class="arabic">جميع حقوق النشر محفوظة - البرنامج للاستخدام الرسمي فقط من قبل الشخص المصرح له فقط</span>
+            <span class="english translated">All rights reserved - This software is for official use only by authorized personnel</span>
         </div>
     </div>
 
@@ -941,49 +1428,97 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">إضافة مستخدم جديد</h5>
+                    <h5 class="modal-title">
+                        <span class="arabic">إضافة مستخدم جديد</span>
+                        <span class="english translated">Add New User</span>
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="addUserForm">
                         <div class="mb-3">
-                            <label for="newEmployeeId" class="form-label">رقم الوظيفي</label>
+                            <label for="newEmployeeId" class="form-label">
+                                <span class="arabic">رقم الوظيفي</span>
+                                <span class="english translated">Employee ID</span>
+                            </label>
                             <input type="text" class="form-control" id="newEmployeeId" required>
                         </div>
                         <div class="mb-3">
-                            <label for="newUserName" class="form-label">اسم المستخدم</label>
+                            <label for="newUserName" class="form-label">
+                                <span class="arabic">اسم المستخدم</span>
+                                <span class="english translated">Username</span>
+                            </label>
                             <input type="text" class="form-control" id="newUserName" required>
                         </div>
                         <div class="mb-3">
-                            <label for="newUserRole" class="form-label">الصلاحية</label>
+                            <label for="newUserRole" class="form-label">
+                                <span class="arabic">الصلاحية</span>
+                                <span class="english translated">Role</span>
+                            </label>
                             <select class="form-select" id="newUserRole" required>
-                                <option value="admin">مدير</option>
-                                <option value="technician">فني</option>
-                                <option value="viewer">مشاهد</option>
+                                <option value="admin">
+                                    <span class="arabic">مدير</span>
+                                    <span class="english translated">Admin</span>
+                                </option>
+                                <option value="technician">
+                                    <span class="arabic">فني</span>
+                                    <span class="english translated">Technician</span>
+                                </option>
+                                <option value="viewer">
+                                    <span class="arabic">مشاهد</span>
+                                    <span class="english translated">Viewer</span>
+                                </option>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="newUserLocation" class="form-label">الموقع</label>
+                            <label for="newUserLocation" class="form-label">
+                                <span class="arabic">الموقع</span>
+                                <span class="english translated">Location</span>
+                            </label>
                             <select class="form-select" id="newUserLocation" required>
-                                <option value="all">الجميع</option>
-                                <option value="الرياض">الرياض</option>
-                                <option value="جدة">جدة</option>
-                                <option value="الدمام">الدمام</option>
+                                <option value="all">
+                                    <span class="arabic">الجميع</span>
+                                    <span class="english translated">All</span>
+                                </option>
+                                <option value="الرياض">
+                                    <span class="arabic">الرياض</span>
+                                    <span class="english translated">Riyadh</span>
+                                </option>
+                                <option value="جدة">
+                                    <span class="arabic">جدة</span>
+                                    <span class="english translated">Jeddah</span>
+                                </option>
+                                <option value="الدمام">
+                                    <span class="arabic">الدمام</span>
+                                    <span class="english translated">Dammam</span>
+                                </option>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="newUserPassword" class="form-label">كلمة المرور</label>
+                            <label for="newUserPassword" class="form-label">
+                                <span class="arabic">كلمة المرور</span>
+                                <span class="english translated">Password</span>
+                            </label>
                             <input type="password" class="form-control" id="newUserPassword" required>
                         </div>
                         <div class="mb-3">
-                            <label for="confirmPassword" class="form-label">تأكيد كلمة المرور</label>
+                            <label for="confirmPassword" class="form-label">
+                                <span class="arabic">تأكيد كلمة المرور</span>
+                                <span class="english translated">Confirm Password</span>
+                            </label>
                             <input type="password" class="form-control" id="confirmPassword" required>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-                    <button type="button" class="btn btn-primary" id="saveNewUserBtn">حفظ</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <span class="arabic">إلغاء</span>
+                        <span class="english translated">Cancel</span>
+                    </button>
+                    <button type="button" class="btn btn-primary" id="saveNewUserBtn">
+                        <span class="arabic">حفظ</span>
+                        <span class="english translated">Save</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -1009,49 +1544,53 @@
                     id: 'DRML-000001',
                     date: '2023-06-15',
                     time: '10:30',
-                    location: 'الرياض',
-                    animalType: 'خروف',
-                    animalGender: 'ذكر',
-                    sampleType: 'دم',
-                    testType: 'اختبار بروسيلا RBT',
-                    testResult: 'سلبية',
+                    location: 'الرياض / Riyadh',
+                    animalType: 'خروف / Sheep',
+                    animalGender: 'ذكر / Male',
+                    sampleType: 'دم / Blood',
+                    testType: 'اختبار بروسيلا RBT / Brucella RBT Test',
+                    testResult: 'سلبية / Negative',
                     notes: '',
-                    enteredBy: 'مسؤول النظام'
+                    enteredBy: 'مسؤول النظام / System Admin'
                 },
                 {
                     id: 'DRML-000002',
                     date: '2023-06-16',
                     time: '14:15',
-                    location: 'جدة',
-                    animalType: 'بقر',
-                    animalGender: 'انثى',
-                    sampleType: 'مسحة',
-                    testType: 'اختبار يرقان',
-                    testResult: 'موجبة',
-                    notes: 'يحتاج إلى متابعة',
-                    enteredBy: 'مسؤول النظام'
+                    location: 'جدة / Jeddah',
+                    animalType: 'بقر / Cow',
+                    animalGender: 'انثى / Female',
+                    sampleType: 'مسحة / Swab',
+                    testType: 'اختبار يرقان / Jaundice Test',
+                    testResult: 'موجبة / Positive',
+                    notes: 'يحتاج إلى متابعة / Needs follow-up',
+                    enteredBy: 'مسؤول النظام / System Admin'
                 },
                 {
                     id: 'DRML-000003',
                     date: '2023-06-17',
                     time: '09:45',
-                    location: 'الدمام',
-                    animalType: 'ماعز',
-                    animalGender: 'انثى',
-                    sampleType: 'شحم',
-                    testType: 'رائحة',
-                    testResult: 'مشكوك يجب اجراء اختبار تأكيدي',
-                    notes: 'رائحة غير طبيعية',
-                    enteredBy: 'مسؤول النظام'
+                    location: 'الدمام / Dammam',
+                    animalType: 'ماعز / Goat',
+                    animalGender: 'انثى / Female',
+                    sampleType: 'شحم / Fat',
+                    testType: 'رائحة / Smell Test',
+                    testResult: 'مشكوك يجب اجراء اختبار تأكيدي / Suspicious (needs confirmation)',
+                    notes: 'رائحة غير طبيعية / Abnormal smell',
+                    enteredBy: 'مسؤول النظام / System Admin'
                 }
             ];
 
             let currentSampleId = 4; // Starting from 4 because we have 3 sample entries
-            let currentUser = {
-                name: 'مسؤول النظام',
-                id: 'ADMIN-001',
-                role: 'admin'
-            };
+            let currentUser = null;
+
+            // Check if user is already logged in from localStorage
+            const savedUser = localStorage.getItem('currentUser');
+            const savedScreen = localStorage.getItem('currentScreen');
+            
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+            }
 
             // DOM elements
             const welcomeScreen = document.getElementById('welcomeScreen');
@@ -1102,6 +1641,25 @@
             initApp();
 
             function initApp() {
+                // Check if user is already logged in
+                if (currentUser) {
+                    welcomeScreen.classList.add('d-none');
+                    loginScreen.classList.add('d-none');
+                    dashboard.classList.remove('d-none');
+                    
+                    // Update user info
+                    loggedInUserName.textContent = currentUser.name;
+                    loggedInUserId.innerHTML = `<span class="arabic">رقم الوظيفي:</span><span class="english translated">Employee ID:</span> ${currentUser.id}`;
+                    
+                    // Show the saved screen or default to data entry
+                    showScreen(savedScreen || 'dataEntry');
+                } else {
+                    // Show welcome screen by default
+                    welcomeScreen.classList.remove('d-none');
+                    loginScreen.classList.add('d-none');
+                    dashboard.classList.add('d-none');
+                }
+
                 // Update date and time
                 updateDateTime();
                 setInterval(updateDateTime, 1000);
@@ -1120,6 +1678,9 @@
                             const screen = item.getAttribute('data-screen');
                             showScreen(screen);
                             setActiveMenuItem(item);
+                            
+                            // Save current screen to localStorage
+                            localStorage.setItem('currentScreen', screen);
                         }
                     });
                 });
@@ -1147,20 +1708,74 @@
                     button.addEventListener('click', switchLanguage);
                 });
 
+                // Disable delete buttons for the admin user
+                document.querySelectorAll('.delete-user').forEach(btn => {
+                    btn.disabled = true;
+                });
+
+                // Add event listeners for delete buttons
+                document.querySelectorAll('.delete-location').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        if (confirm(document.documentElement.lang === 'ar' ? 
+                            'هل أنت متأكد من حذف هذا الموقع؟' : 
+                            'Are you sure you want to delete this location?')) {
+                            this.parentElement.remove();
+                        }
+                    });
+                });
+
+                document.querySelectorAll('.delete-sample-type').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        if (confirm(document.documentElement.lang === 'ar' ? 
+                            'هل أنت متأكد من حذف نوع العينة هذا؟' : 
+                            'Are you sure you want to delete this sample type?')) {
+                            this.parentElement.remove();
+                        }
+                    });
+                });
+
+                document.querySelectorAll('.delete-test-type').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        if (confirm(document.documentElement.lang === 'ar' ? 
+                            'هل أنت متأكد من حذف نوع الاختبار هذا؟' : 
+                            'Are you sure you want to delete this test type?')) {
+                            this.parentElement.remove();
+                        }
+                    });
+                });
+
+                document.querySelectorAll('.delete-test-result').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        if (confirm(document.documentElement.lang === 'ar' ? 
+                            'هل أنت متأكد من حذف نتيجة الاختبار هذه؟' : 
+                            'Are you sure you want to delete this test result?')) {
+                            this.parentElement.remove();
+                        }
+                    });
+                });
+
+                // Edit user button
+                document.querySelector('.edit-user').addEventListener('click', function() {
+                    alert(document.documentElement.lang === 'ar' ? 
+                        'يمكنك تعديل بيانات المستخدم هنا' : 
+                        'You can edit user data here');
+                });
+
                 // Populate reports table
                 populateReportsTable();
             }
 
             function updateDateTime() {
                 const now = new Date();
-                const date = now.toLocaleDateString('ar-EG');
-                const time = now.toLocaleTimeString('ar-EG');
+                const date = now.toLocaleDateString(document.documentElement.lang === 'ar' ? 'ar-EG' : 'en-US');
+                const time = now.toLocaleTimeString(document.documentElement.lang === 'ar' ? 'ar-EG' : 'en-US');
                 currentDateTime.textContent = `${date} - ${time}`;
             }
 
             function generateSampleNumber() {
                 const paddedId = String(currentSampleId).padStart(6, '0');
-                sampleNumber.textContent = `رقم التحليل: DRML-${paddedId}`;
+                const prefix = document.documentElement.lang === 'ar' ? 'رقم التحليل:' : 'Sample ID:';
+                sampleNumber.innerHTML = `<span class="arabic">رقم التحليل:</span><span class="english translated">Sample ID:</span> DRML-${paddedId}`;
             }
 
             function showLoginScreen() {
@@ -1172,37 +1787,49 @@
             function handleLogin(e) {
                 e.preventDefault();
                 const employeeId = document.getElementById('employeeId').value;
-                const password = document.getElementById('password').value;
                 
-                // Simple validation (in a real app, this would be more secure)
-                if (employeeId && password) {
-                    // Set current user (in a real app, you'd verify credentials)
+                // Only allow login with employee ID 70062
+                if (employeeId === '70062') {
                     currentUser = {
-                        name: employeeId === 'ADMIN-001' ? 'مسؤول النظام' : 'فني مختبر',
+                        name: 'مصعب محمد',
                         id: employeeId,
-                        role: employeeId === 'ADMIN-001' ? 'admin' : 'technician'
+                        role: 'admin'
                     };
                     
+                    // Save user to localStorage
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    
                     loggedInUserName.textContent = currentUser.name;
-                    loggedInUserId.textContent = `رقم الوظيفي: ${currentUser.id}`;
+                    loggedInUserId.innerHTML = `<span class="arabic">رقم الوظيفي:</span><span class="english translated">Employee ID:</span> ${currentUser.id}`;
                     
                     loginScreen.classList.add('d-none');
                     dashboard.classList.remove('d-none');
                     
-                    // Show data entry screen by default
+                    // Show data entry screen by default and save to localStorage
                     showScreen('dataEntry');
+                    localStorage.setItem('currentScreen', 'dataEntry');
                 } else {
-                    alert('الرجاء إدخال رقم الوظيفي وكلمة المرور');
+                    alert(document.documentElement.lang === 'ar' ? 
+                        'رقم الوظيفي غير صحيح. الرجاء استخدام رقم 70062' : 
+                        'Invalid employee ID. Please use 70062');
                 }
             }
 
             function handleLogout() {
-                if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
+                const message = document.documentElement.lang === 'ar' ? 
+                    'هل أنت متأكد من تسجيل الخروج؟' : 
+                    'Are you sure you want to logout?';
+                
+                if (confirm(message)) {
+                    // Clear user from localStorage
+                    localStorage.removeItem('currentUser');
+                    localStorage.removeItem('currentScreen');
+                    
                     dashboard.classList.add('d-none');
-                    loginScreen.classList.remove('d-none');
-                    loginScreen.classList.add('d-flex');
+                    welcomeScreen.classList.remove('d-none');
                     document.getElementById('employeeId').value = '';
-                    document.getElementById('password').value = '';
+                    
+                    currentUser = null;
                 }
             }
 
@@ -1237,14 +1864,26 @@
                 const newSample = {
                     id: `DRML-${String(currentSampleId).padStart(6, '0')}`,
                     date: now.toISOString().split('T')[0],
-                    time: now.toLocaleTimeString('ar-EG', {hour: '2-digit', minute:'2-digit'}),
-                    location,
-                    animalType,
-                    animalGender,
-                    sampleType,
-                    testType,
-                    testResult,
-                    notes,
+                    time: now.toLocaleTimeString(document.documentElement.lang === 'ar' ? 'ar-EG' : 'en-US', {hour: '2-digit', minute:'2-digit'}),
+                    location: document.documentElement.lang === 'ar' ? 
+                        location.split(' / ')[0] + ' / ' + location.split(' / ')[1] : 
+                        location.split(' / ')[1] + ' / ' + location.split(' / ')[0],
+                    animalType: document.documentElement.lang === 'ar' ? 
+                        animalType.split(' / ')[0] + ' / ' + animalType.split(' / ')[1] : 
+                        animalType.split(' / ')[1] + ' / ' + animalType.split(' / ')[0],
+                    animalGender: document.documentElement.lang === 'ar' ? 
+                        animalGender.split(' / ')[0] + ' / ' + animalGender.split(' / ')[1] : 
+                        animalGender.split(' / ')[1] + ' / ' + animalGender.split(' / ')[0],
+                    sampleType: document.documentElement.lang === 'ar' ? 
+                        sampleType.split(' / ')[0] + ' / ' + sampleType.split(' / ')[1] : 
+                        sampleType.split(' / ')[1] + ' / ' + sampleType.split(' / ')[0],
+                    testType: document.documentElement.lang === 'ar' ? 
+                        testType.split(' / ')[0] + ' / ' + testType.split(' / ')[1] : 
+                        testType.split(' / ')[1] + ' / ' + testType.split(' / ')[0],
+                    testResult: document.documentElement.lang === 'ar' ? 
+                        testResult.split(' / ')[0] + ' / ' + testResult.split(' / ')[1] : 
+                        testResult.split(' / ')[1] + ' / ' + testResult.split(' / ')[0],
+                    notes: notes,
                     enteredBy: currentUser.name
                 };
                 
@@ -1259,15 +1898,21 @@
                 sampleForm.reset();
                 
                 // Show success message
-                alert('تم حفظ بيانات العينة بنجاح');
+                alert(document.documentElement.lang === 'ar' ? 
+                    'تم حفظ بيانات العينة بنجاح' : 
+                    'Sample data saved successfully');
                 
                 // Update reports table
                 populateReportsTable();
             }
 
             function generateBarcode() {
-                const sampleId = sampleNumber.textContent.split(': ')[1];
-                barcodeTitle.textContent = `باركود العينة: ${sampleId}`;
+                const sampleId = sampleNumber.textContent.split(': ')[1].trim();
+                barcodeTitle.innerHTML = `
+                    <span class="arabic">باركود العينة:</span>
+                    <span class="english translated">Sample Barcode:</span>
+                    ${sampleId}
+                `;
                 
                 // Generate barcode
                 JsBarcode(barcodeSvg, sampleId, {
@@ -1282,6 +1927,7 @@
                 
                 // Show barcode screen
                 showScreen('barcode');
+                localStorage.setItem('currentScreen', 'barcode');
             }
 
             function printBarcode() {
@@ -1289,7 +1935,9 @@
             }
 
             function downloadBarcode() {
-                alert('سيتم تنزيل الباركود كصورة (في تطبيق حقيقي)');
+                alert(document.documentElement.lang === 'ar' ? 
+                    'سيتم تنزيل الباركود كصورة (في تطبيق حقيقي)' : 
+                    'Barcode will be downloaded as image (in a real app)');
             }
 
             function populateReportsTable(filteredSamples = null) {
@@ -1302,8 +1950,12 @@
                     
                     // Determine badge class based on test result
                     let badgeClass = 'badge-success';
-                    if (sample.testResult.includes('موجبة')) badgeClass = 'badge-danger';
-                    else if (sample.testResult.includes('مشكوك')) badgeClass = 'badge-warning';
+                    let resultText = sample.testResult;
+                    if (sample.testResult.includes('موجبة') || sample.testResult.includes('Positive')) {
+                        badgeClass = 'badge-danger';
+                    } else if (sample.testResult.includes('مشكوك') || sample.testResult.includes('Suspicious')) {
+                        badgeClass = 'badge-warning';
+                    }
                     
                     row.innerHTML = `
                         <td>${sample.date}</td>
@@ -1313,7 +1965,7 @@
                         <td>${sample.animalGender}</td>
                         <td>${sample.sampleType}</td>
                         <td>${sample.testType}</td>
-                        <td><span class="badge ${badgeClass}">${sample.testResult}</span></td>
+                        <td><span class="badge ${badgeClass}">${resultText}</span></td>
                         <td>${sample.enteredBy}</td>
                     `;
                     
@@ -1337,14 +1989,16 @@
                 }
                 
                 if (testType) {
-                    filtered = filtered.filter(sample => sample.testType === testType);
+                    filtered = filtered.filter(sample => sample.testType.includes(testType.split(' / ')[0]));
                 }
                 
                 populateReportsTable(filtered);
             }
 
             function exportToPdf() {
-                alert('سيتم تصدير التقرير كملف PDF (في تطبيق حقيقي)');
+                alert(document.documentElement.lang === 'ar' ? 
+                    'سيتم تصدير التقرير كملف PDF (في تطبيق حقيقي)' : 
+                    'Report will be exported as PDF (in a real app)');
             }
 
             function saveNewUser() {
@@ -1356,12 +2010,16 @@
                 const confirmPass = document.getElementById('confirmPassword').value;
                 
                 if (password !== confirmPass) {
-                    alert('كلمة المرور وتأكيدها غير متطابقين');
+                    alert(document.documentElement.lang === 'ar' ? 
+                        'كلمة المرور وتأكيدها غير متطابقين' : 
+                        'Password and confirmation do not match');
                     return;
                 }
                 
                 // In a real app, you would save the user to your database
-                alert(`تم إضافة المستخدم ${userName} بنجاح`);
+                alert(document.documentElement.lang === 'ar' ? 
+                    `تم إضافة المستخدم ${userName} بنجاح` : 
+                    `User ${userName} added successfully`);
                 addUserModal.hide();
             }
 
@@ -1372,10 +2030,19 @@
                     li.className = 'list-group-item d-flex justify-content-between align-items-center';
                     li.innerHTML = `
                         ${location}
-                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-sm btn-outline-danger delete-location"><i class="fas fa-trash"></i></button>
                     `;
                     locationsList.appendChild(li);
                     newLocation.value = '';
+                    
+                    // Add event listener for the new delete button
+                    li.querySelector('.delete-location').addEventListener('click', function() {
+                        if (confirm(document.documentElement.lang === 'ar' ? 
+                            'هل أنت متأكد من حذف هذا الموقع؟' : 
+                            'Are you sure you want to delete this location?')) {
+                            li.remove();
+                        }
+                    });
                 }
             }
 
@@ -1386,10 +2053,19 @@
                     li.className = 'list-group-item d-flex justify-content-between align-items-center';
                     li.innerHTML = `
                         ${sampleType}
-                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-sm btn-outline-danger delete-sample-type"><i class="fas fa-trash"></i></button>
                     `;
                     sampleTypesList.appendChild(li);
                     newSampleType.value = '';
+                    
+                    // Add event listener for the new delete button
+                    li.querySelector('.delete-sample-type').addEventListener('click', function() {
+                        if (confirm(document.documentElement.lang === 'ar' ? 
+                            'هل أنت متأكد من حذف نوع العينة هذا؟' : 
+                            'Are you sure you want to delete this sample type?')) {
+                            li.remove();
+                        }
+                    });
                 }
             }
 
@@ -1400,10 +2076,19 @@
                     li.className = 'list-group-item d-flex justify-content-between align-items-center';
                     li.innerHTML = `
                         ${testType}
-                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-sm btn-outline-danger delete-test-type"><i class="fas fa-trash"></i></button>
                     `;
                     testTypesList.appendChild(li);
                     newTestType.value = '';
+                    
+                    // Add event listener for the new delete button
+                    li.querySelector('.delete-test-type').addEventListener('click', function() {
+                        if (confirm(document.documentElement.lang === 'ar' ? 
+                            'هل أنت متأكد من حذف نوع الاختبار هذا؟' : 
+                            'Are you sure you want to delete this test type?')) {
+                            li.remove();
+                        }
+                    });
                 }
             }
 
@@ -1414,10 +2099,19 @@
                     li.className = 'list-group-item d-flex justify-content-between align-items-center';
                     li.innerHTML = `
                         ${testResult}
-                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-sm btn-outline-danger delete-test-result"><i class="fas fa-trash"></i></button>
                     `;
                     testResultsList.appendChild(li);
                     newTestResult.value = '';
+                    
+                    // Add event listener for the new delete button
+                    li.querySelector('.delete-test-result').addEventListener('click', function() {
+                        if (confirm(document.documentElement.lang === 'ar' ? 
+                            'هل أنت متأكد من حذف نتيجة الاختبار هذه؟' : 
+                            'Are you sure you want to delete this test result?')) {
+                            li.remove();
+                        }
+                    });
                 }
             }
 
@@ -1452,24 +2146,78 @@
             }
 
             function saveSystemSettings() {
-                alert('تم حفظ إعدادات النظام بنجاح');
+                const lang = systemLanguage.value;
+                const isRtl = rtlSwitch.checked;
+                
+                // Change language if needed
+                if (lang !== document.documentElement.lang) {
+                    document.documentElement.lang = lang;
+                    document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
+                    
+                    // Update UI elements based on language
+                    updatePlaceholders();
+                    generateSampleNumber();
+                    updateDateTime();
+                    
+                    // Update current user name display
+                    if (currentUser) {
+                        loggedInUserName.textContent = currentUser.name;
+                    }
+                }
+                
+                // Change direction if needed
+                if ((isRtl && document.documentElement.dir !== 'rtl') || 
+                    (!isRtl && document.documentElement.dir !== 'ltr')) {
+                    document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
+                }
+                
+                alert(document.documentElement.lang === 'ar' ? 
+                    'تم حفظ إعدادات النظام بنجاح' : 
+                    'System settings saved successfully');
             }
 
             function switchLanguage(e) {
                 const lang = e.target.getAttribute('data-lang');
                 
+                // Update active button
                 languageSwitcherButtons.forEach(button => {
                     button.classList.remove('active');
                 });
                 e.target.classList.add('active');
                 
-                if (lang === 'en') {
-                    document.documentElement.setAttribute('dir', 'ltr');
-                    document.documentElement.setAttribute('lang', 'en');
+                // Set document language and direction
+                document.documentElement.lang = lang;
+                
+                // For Arabic, ensure RTL is enabled
+                if (lang === 'ar') {
+                    document.documentElement.dir = 'rtl';
+                    rtlSwitch.checked = true;
                 } else {
-                    document.documentElement.setAttribute('dir', 'rtl');
-                    document.documentElement.setAttribute('lang', 'ar');
+                    // For English, use system setting or default to LTR
+                    document.documentElement.dir = rtlSwitch.checked ? 'rtl' : 'ltr';
                 }
+                
+                // Update UI elements
+                updatePlaceholders();
+                generateSampleNumber();
+                updateDateTime();
+                
+                // Update current user name display
+                if (currentUser) {
+                    loggedInUserName.textContent = currentUser.name;
+                }
+            }
+
+            function updatePlaceholders() {
+                // Update all input placeholders based on current language
+                const inputs = document.querySelectorAll('input[data-ar-placeholder], textarea[data-ar-placeholder]');
+                inputs.forEach(input => {
+                    if (document.documentElement.lang === 'ar') {
+                        input.placeholder = input.getAttribute('data-ar-placeholder');
+                    } else {
+                        input.placeholder = input.getAttribute('data-en-placeholder');
+                    }
+                });
             }
         });
     </script>
